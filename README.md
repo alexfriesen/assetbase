@@ -12,13 +12,6 @@ Assetbase is using [Meteor](https://www.meteor.com/install) and [React](https://
 
 Assetbase currently only supports Amazons S3 Service. To run Assetbase you need to provide the S3/AWS Informations in the settings.json.
 
-### run
-
-````
-   npm run init
-   npm run start
-````
-
 settings.json
 ````json
 {
@@ -29,6 +22,13 @@ settings.json
 
   	"AWSRegion": ""
 }
+````
+
+### run
+
+````
+   npm run init
+   npm run start
 ````
 
 ## Features
