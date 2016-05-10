@@ -2,6 +2,7 @@
   "name": "assetbase",
   "private": true,
   "scripts": {
+    "init": "npm install",
     "start": "meteor --settings settings.json"
   },
   "dependencies": {

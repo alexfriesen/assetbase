@@ -32,7 +32,7 @@ class AssetList extends Component {
     }
 
     const {data} = this.props;
-    console.log(data);
+    
     return (
       <div className="row">
         { this.renderAssets(data) }
