@@ -1,0 +1,37 @@
+/* nothing here! */
+.dropfield {
+    margin: 10px auto;
+    background: rgba(0,0,0,0.1);
+    border: 4px dashed rgba(0,0,0,0.2);
+    border-radius: 10px;
+    cursor: pointer;
+}
+.dropfield.drop {
+    background: rgba(0,0,0,0.2);
+}
+
+.dropfield .text {
+    margin-top: 20px;
+    display: block;
+    font-size: 2em;
+} 
+
+a.user-avatar, img.avatar {
+    border-radius: 100%;
+    display: inline-block;
+}
+
+a.user-avatar.small, img.avatar.small {
+    height: 20px;
+    width: 20px;
+}
+
+a.user-avatar.medium, img.avatar.medium {
+    height: 30px;
+    width: 30px;
+}
+
+a.user-avatar.large, img.avatar.large {
+    height: 50px;
+    width: 50px;
+}

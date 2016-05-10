@@ -1,0 +1,4 @@
+import { Mongo } from 'meteor/mongo';
+import { check } from 'meteor/check';
+
+export const Categories = new Mongo.Collection('categories');
