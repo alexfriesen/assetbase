@@ -1,0 +1,21 @@
+{
+  "name": "assetbase",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "init": "npm install",
+    "start": "meteor --settings settings.json"
+  },
+  "dependencies": {
+    "classnames": "^2.2.3",
+    "md5": "^2.1.0",
+    "meteor-node-stubs": "~0.2.0",
+    "react": "^15.0.1",
+    "react-addons-pure-render-mixin": "^15.0.1",
+    "react-dom": "^15.0.1",
+    "react-dropzone": "^3.4.0",
+    "react-redux": "^4.4.5",
+    "react-router": "^2.2.1",
+    "redux": "^3.5.2"
+  }
+}
