@@ -8,9 +8,13 @@ Assetbase is using [Meteor](https://www.meteor.com/install) and [React](https://
 
 ## Installation
 
+### Meteor
+
+To run Assetbase you need to install Meteor first: [Meteor Quick Start](https://github.com/meteor/meteor#quick-start).
+
 ### Settings.json
 
-Assetbase currently only supports Amazons S3 Service. To run Assetbase you need to provide the S3/AWS Informations in the settings.json.
+Assetbase currently only supports Amazons S3 Service. To run Assetbase you need to provide the S3/AWS Keys to the 'settings.json' in your application root folder.
 
 settings.json
 ````json
@@ -41,6 +45,7 @@ settings.json
 ## Roadmap
 
 - Translations
+- Improve Fileupload
 - Improve Login/Registration
 - Improve User Profile
 - User Notification
