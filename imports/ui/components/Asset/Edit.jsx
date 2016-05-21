@@ -203,8 +203,8 @@ export default class EditAsset extends Component {
       //TODO: make sortable via drag and drop
 
       return (
-        <div className="col-sm-3" key={ file.path || file.name }>
-          <img className="img-thumbnail" src={ file.path || file.preview } alt={ file.name } />
+        <div className="col-sm-3" key={file.path || file.name}>
+          <img className="img-thumbnail" src={file.path || file.preview} alt={file.name} />
         </div>
         );
     });
@@ -216,6 +216,12 @@ export default class EditAsset extends Component {
 
     const {queuedFiles, uploadedFiles} = this.state;
     console.log(currentUser);
+
+    if (!currentUser) {
+      return (
+        <h3>Not Allowed</h3>
+        );
+    }
 
     let {files} = asset || {};
     files = files || [];
@@ -235,14 +241,14 @@ export default class EditAsset extends Component {
     const accept = Slingshot.getRestrictions(this.directiveName).allowedFileTypes.join(',');
 
     return (
-      <form className="form-horizontal" onSubmit={ this.handleSubmit.bind(this) }>
+      <form className="form-horizontal" onSubmit={this.handleSubmit.bind(this)}>
         <fieldset>
           <div className="row">
             <div className="col-lg-12">
               <input
                 type="text"
                 className="form-control"
-                defaultValue={ title || "" }
+                defaultValue={title || ""}
                 ref="title"
                 placeholder="Asset Title" />
             </div>
@@ -250,41 +256,41 @@ export default class EditAsset extends Component {
               <textarea
                 rows="3"
                 className="form-control"
-                defaultValue={ description || "" }
+                defaultValue={description || ""}
                 ref="description"
                 placeholder="Description" />
             </div>
             <div className="col-lg-12">
               <div className="row">
-                { this.renderPreview(files) }
+                {this.renderPreview(files)}
               </div>
               <Dropzone
                 className="dropfield"
                 activeClassName="active"
                 rejectClassName="reject"
-                onDropAccepted={ this.handleFileDrop.bind(this) }
-                accept={ accept }>
+                onDropAccepted={this.handleFileDrop.bind(this)}
+                accept={accept}>
                 <span className="text">Drop here</span>
               </Dropzone>
             </div>
             <div className="col-lg-4">
               <div className="checkbox">
                 <label>
-                  <input type="checkbox" defaultValue={ published || "" } ref="published" /> published
+                  <input type="checkbox" defaultValue={published || ""} ref="published" /> published
                 </label>
               </div>
             </div>
             <div className="col-lg-4">
               <div className="checkbox">
                 <label>
-                  <input type="checkbox" defaultValue={ adult || "" } ref="adult" /> adult
+                  <input type="checkbox" defaultValue={adult || ""} ref="adult" /> adult
                 </label>
               </div>
             </div>
             <div className="col-lg-4">
               <div className="checkbox">
                 <label>
-                  <input type="checkbox" defaultValue={ commentsAllowed || "" } ref="commentsAllowed" /> commentsAllowed
+                  <input type="checkbox" defaultValue={commentsAllowed || ""} ref="commentsAllowed" /> commentsAllowed
                 </label>
               </div>
             </div>
@@ -292,7 +298,7 @@ export default class EditAsset extends Component {
               <input
                 type="text"
                 className="form-control"
-                defaultValue={ tags || "" }
+                defaultValue={tags || ""}
                 ref="tags"
                 placeholder="Tags" />
             </div>
@@ -300,7 +306,7 @@ export default class EditAsset extends Component {
               <input
                 type="text"
                 className="form-control"
-                defaultValue={ categoryId || "" }
+                defaultValue={categoryId || ""}
                 ref="categoryId"
                 placeholder="categoryId" />
             </div>
