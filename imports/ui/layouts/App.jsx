@@ -65,7 +65,7 @@ export default class App extends React.Component {
             <div className="col-lg-12">
               {showConnectionIssue && !connected
                ? <div className="alert alert-danger">
-                   <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> No Connection
+                   <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> No Connection
                  </div>
                : null}
               {children}
