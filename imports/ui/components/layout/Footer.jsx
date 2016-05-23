@@ -7,7 +7,7 @@ export default class Footer extends React.Component {
         <div className="row">
           <div className="col-lg-12">
             <p>
-              Copyright &copy;
+              Copyright &copy; Assetbase
             </p>
           </div>
         </div>

@@ -22,7 +22,7 @@ class CommentList extends Component {
 
     return filteredData.map((comment) => {
       return (
-        <CommentItem key={ comment._id } comment={ comment } currentUser={ this.props.currentUser } />
+        <CommentItem key={ comment._id } comment={ comment } />
         );
     });
   }
@@ -49,7 +49,6 @@ class CommentList extends Component {
 CommentList.propTypes = {
   loading: React.PropTypes.bool,
   data: PropTypes.array,
-  currentUser: PropTypes.object,
 };
 
 export default createContainer((props) => {
@@ -67,6 +66,5 @@ export default createContainer((props) => {
   return {
     loading,
     data,
-    currentUser: props.currentUser,
   };
 }, CommentList);

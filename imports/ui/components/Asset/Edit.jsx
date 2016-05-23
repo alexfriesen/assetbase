@@ -211,11 +211,11 @@ export default class EditAsset extends Component {
   }
 
   render() {
-    const {asset, currentUser} = this.props;
+    const {currentUser} = this.context;
+    const {asset} = this.props;
     const {title, description, published, adult, commentsAllowed, tags, categoryId} = asset || {};
 
     const {queuedFiles, uploadedFiles} = this.state;
-    console.log(currentUser);
 
     if (!currentUser) {
       return (
@@ -324,5 +324,8 @@ export default class EditAsset extends Component {
 
 EditAsset.propTypes = {
   asset: PropTypes.object,
-  currentUser: PropTypes.object,
+};
+
+EditAsset.contextTypes = {
+  currentUser: React.PropTypes.object,
 };

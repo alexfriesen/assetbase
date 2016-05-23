@@ -64,5 +64,8 @@ export default class EditUser extends Component {
 
 EditUser.propTypes = {
   user: PropTypes.object,
-  currentUser: PropTypes.object,
+};
+
+EditUser.contextTypes = {
+  currentUser: React.PropTypes.object,
 };

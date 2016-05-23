@@ -1,4 +1,4 @@
-import React, { PropTypes } from "react";
+import React from "react";
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { createContainer, ReactMeteorData } from 'meteor/react-meteor-data';
@@ -26,10 +26,11 @@ class UserPage extends React.Component {
         );
     }
 
-    const {data, currentUser} = this.props;
+    const {currentUser} = this.context;
+    const {data} = this.props;
     const {profile} = data;
 
-    const isCurrentUser = currentUser._id === data._id;
+    const isCurrentUser = currentUser && currentUser._id === data._id;
 
     if (!isCurrentUser && (profile && !profile.public)) {
       return (
@@ -46,18 +47,15 @@ class UserPage extends React.Component {
 
     if (this.props.params.method === 'edit' && isCurrentUser) {
       return (
-        <div>
-          <UserEdit user={ data } currentUser={ this.props.currentUser } />
-        </div>
+        <UserEdit user={data} />
         );
     }
 
     return (
       <div>
-        <Profile user={ data } currentUser={ this.props.currentUser } />
-        
-        <h3> Assets </h3>
-        <AssetList userId={ data._id } currentUser={ this.props.currentUser } />
+        <Profile user={data} />
+        <h3>Assets</h3>
+        <AssetList userId={data._id} />
       </div>
       );
   }
@@ -66,15 +64,16 @@ class UserPage extends React.Component {
 UserPage.propTypes = {
   loading: React.PropTypes.bool,
   dataExists: React.PropTypes.bool,
-  data: PropTypes.object,
-  currentUser: PropTypes.object,
+  data: React.PropTypes.object,
 };
+
+UserPage.contextTypes = {
+  currentUser: React.PropTypes.object,
+}
 
 export default createContainer((props) => {
   let {query} = props.location;
   let {id} = props.params;
-
-  let user = Meteor.user();
 
   let subscriptionHandler = Meteor.subscribe('user', id);
   const data = UsersCollection.findOne(id);
@@ -86,6 +85,5 @@ export default createContainer((props) => {
     loading,
     dataExists,
     data,
-    currentUser: user,
   };
 }, UserPage);

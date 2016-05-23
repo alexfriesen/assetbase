@@ -19,35 +19,32 @@ export default class AssetDetail extends Component {
       }
 
       return (
-        <AssetFile
-          key={ file.path }
-          asset={ this.props.asset }
-          file={ file }
-          currentUser={ this.props.currentUser } />
+        <AssetFile key={file.path} asset={this.props.asset} file={file} />
         );
     });
   }
 
   render() {
-    const {asset, currentUser} = this.props;
+    const {currentUser} = this.context;
+    const {asset} = this.props;
 
     let editLink;
     if (currentUser._id === asset.userId) {
-      editLink = <a href={ '/asset/' + asset._id + '/edit' }>Edit</a>;
+      editLink = <a href={'/asset/' + asset._id + '/edit'}>Edit</a>;
     }
 
     return (
       <div className="row">
         <div className="col-lg-8">
           <div className="row">
-            { this.renderFiles(asset.files) }
+            {this.renderFiles(asset.files)}
           </div>
         </div>
         <div className="col-lg-4">
-          <h1>Asset: { asset.title }</h1>
-          { editLink }
-          <CommentForm assetId={ asset._id } large={ true } currentUser={ currentUser } />
-          <CommentList assetId={ asset._id } currentUser={ currentUser } />
+          <h1>Asset: {asset.title}</h1>
+          {editLink}
+          <CommentForm assetId={asset._id} large={true} />
+          <CommentList assetId={asset._id} />
         </div>
       </div>
       );
@@ -56,5 +53,8 @@ export default class AssetDetail extends Component {
 
 AssetDetail.propTypes = {
   asset: PropTypes.object.isRequired,
-  currentUser: PropTypes.object,
+};
+
+AssetDetail.contextTypes = {
+  currentUser: React.PropTypes.object,
 };

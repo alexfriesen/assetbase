@@ -20,7 +20,8 @@ export default class CommentForm extends Component {
   }
 
   render() {
-    const {data, currentUser} = this.props;
+    const {currentUser} = this.context;
+    const {data} = this.props;
     const {large} = this.props;
     const {smallInput} = this.props;
 
@@ -48,6 +49,6 @@ export default class CommentForm extends Component {
   }
 }
 
-CommentForm.propTypes = {
-  currentUser: PropTypes.object,
+CommentForm.contextTypes = {
+  currentUser: React.PropTypes.object,
 };

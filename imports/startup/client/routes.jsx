@@ -2,7 +2,7 @@ import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 // route components
-import Layout from "../../ui/Layout";
+import AppContainer from '../../ui/containers/AppContainer.jsx';
 import Dashboard from "../../ui/pages/Dashboard";
 import Categories from "../../ui/pages/Categories";
 import About from "../../ui/pages/About";
@@ -13,7 +13,7 @@ import NotFound from "../../ui/pages/NotFound";
 
 export const renderRoutes = () => (
 <Router history={ browserHistory }>
-  <Route path="/" component={ Layout }>
+  <Route path="/" component={ AppContainer }>
     <IndexRoute component={ Dashboard } />
     <Route path="/categories(/:id)" component={ Categories } />
     <Route path="/asset/:id(/:method)" component={ Asset } />

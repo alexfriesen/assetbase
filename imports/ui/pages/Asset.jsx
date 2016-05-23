@@ -10,12 +10,10 @@ import AssetEdit from '../components/Asset/Edit';
 import AssetDetail from '../components/Asset/Detail';
 
 class AssetPage extends React.Component {
-
-  getChildContext() {
-    return {
-      currentUser: this.props.currentUser,
-    };
-  }
+  // -- static childContextTypes comes with ECMA7 
+  // static childContextTypes = {
+  //   currentUser: React.PropTypes.object
+  // };
 
   handleRemove() {
     const {data} = this.props;
@@ -29,7 +27,10 @@ class AssetPage extends React.Component {
   }
 
   render() {
-    const {loading, dataExists, currentUser} = this.props;
+    const {loading, dataExists} = this.props;
+    const {currentUser} = this.context;
+
+    console.log(currentUser);
 
     if (loading) {
       return (
@@ -39,7 +40,7 @@ class AssetPage extends React.Component {
 
     if (this.props.params.id === 'new') {
       return (
-        <AssetEdit currentUser={ currentUser } />
+        <AssetEdit />
         );
     }
 
@@ -66,12 +67,12 @@ class AssetPage extends React.Component {
 
     if (this.props.params.method === 'edit') {
       return (
-        <AssetEdit asset={ data } currentUser={ currentUser } />
+        <AssetEdit asset={ data } />
         );
     }
 
     return (
-      <AssetDetail asset={ data } currentUser={ currentUser } />
+      <AssetDetail asset={ data } />
       );
   }
 }
@@ -80,17 +81,14 @@ AssetPage.propTypes = {
   loading: React.PropTypes.bool,
   dataExists: React.PropTypes.bool,
   data: PropTypes.object,
-  currentUser: PropTypes.object,
 };
 
-AssetPage.childContextTypes = {
+AssetPage.contextTypes = {
   currentUser: React.PropTypes.object,
 }
 
 export default createContainer((props) => {
   let {id} = props.params;
-
-  let user = Meteor.user();
 
   let dataHandle = Meteor.subscribe('asset', id);
   const data = AssetsCollection.findOne(id);
@@ -102,6 +100,5 @@ export default createContainer((props) => {
     loading,
     dataExists,
     data,
-    currentUser: user,
   };
 }, AssetPage);

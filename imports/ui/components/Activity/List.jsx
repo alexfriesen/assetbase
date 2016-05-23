@@ -40,7 +40,6 @@ class ActivitiesList extends Component {
 ActivitiesList.propTypes = {
   loading: React.PropTypes.bool,
   data: PropTypes.array,
-  currentUser: PropTypes.object,
 };
 
 export default createContainer((props) => {
@@ -54,6 +53,5 @@ export default createContainer((props) => {
   return {
     loading,
     data,
-    currentUser: Meteor.user(),
   };
 }, ActivitiesList);

@@ -13,12 +13,6 @@ import UserAvatar from '../Users/Avatar';
 
 class CommentItem extends Component {
 
-  // getChildContext() {
-  //   return {
-  //     currentUser: this.props.currentUser,
-  //   };
-  // }
-
   handleRemove(id) {
     Meteor.call('comments.remove', id);
   }
@@ -35,7 +29,7 @@ class CommentItem extends Component {
   //   // }
   //   return filteredData.map((comment) => {
   //     return (
-  //       <Comment key={ comment._id } comment={ comment } currentUser={ this.props.currentUser } />
+  //       <Comment key={ comment._id } comment={ comment } />
   //       );
   //   });
   // }
@@ -44,7 +38,7 @@ class CommentItem extends Component {
     const {comment} = this.props;
     const {loading} = this.props;
     // const {children} = this.props;
-    const {currentUser} = this.props;
+    const {currentUser} = this.context;
 
     var remove = this.handleRemove.bind(this, comment._id);
 
@@ -55,7 +49,7 @@ class CommentItem extends Component {
 
     let closeButton = "";
     if (comment.userId === currentUser._id) {
-      closeButton = <button type="button" className="close" onClick={ remove }>
+      closeButton = <button type="button" className="close" onClick={remove}>
                       &times;
                     </button>;
     }
@@ -63,13 +57,13 @@ class CommentItem extends Component {
     const user = Users.findOne(comment.userId);
 
     return (
-      <div key={ comment._id } className="media">
+      <div key={comment._id} className="media">
         <div className="media-left">
-          <UserAvatar user={ user } size="small" link={ true } />
+          <UserAvatar user={user} size="small" link={true} />
         </div>
         <div className="media-body">
-          <h4 className="media-heading"><UserName user={ user } /> { closeButton }</h4>
-          { comment.text }
+          <h4 className="media-heading"><UserName user={user} /> {closeButton}</h4>
+          {comment.text}
         </div>
       </div>
       );
@@ -79,13 +73,12 @@ class CommentItem extends Component {
 CommentItem.propTypes = {
   loading: React.PropTypes.bool,
   comment: PropTypes.object.isRequired,
-  // children: PropTypes.array,
-  currentUser: PropTypes.object,
+// children: PropTypes.array,
 };
 
-// CommentItem.childContextTypes = {
-//   currentUser: React.PropTypes.object,
-// }
+CommentItem.contextTypes = {
+  currentUser: React.PropTypes.object,
+}
 
 export default createContainer((props) => {
   let {comment} = props;
@@ -99,6 +92,5 @@ export default createContainer((props) => {
     loading,
     comment,
     // children,
-    currentUser: props.currentUser,
   };
 }, CommentItem);

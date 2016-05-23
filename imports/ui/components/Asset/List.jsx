@@ -14,7 +14,7 @@ class AssetList extends Component {
 
   renderAssets(assets) {
     return assets.map((asset) => {
-      const currentUserId = this.props.currentUser && this.props.currentUser._id;
+      const currentUserId = this.context.currentUser && this.context.currentUser._id;
       const showPrivateButton = asset.userId === currentUserId;
       return (
         <AssetItem key={ asset._id } data={ asset } showPrivateButton={ showPrivateButton } />
@@ -44,7 +44,10 @@ class AssetList extends Component {
 AssetList.propTypes = {
   loading: React.PropTypes.bool,
   data: PropTypes.array,
-  currentUser: PropTypes.object,
+};
+
+AssetList.contextTypes = {
+  currentUser: React.PropTypes.object,
 };
 
 export default createContainer((props) => {
@@ -54,7 +57,6 @@ export default createContainer((props) => {
     return {
       loading: false,
       data: [],
-      currentUser: Meteor.user(),
     };
   }
 
@@ -68,6 +70,5 @@ export default createContainer((props) => {
   return {
     loading,
     data,
-    currentUser: props.currentUser,
   };
 }, AssetList);

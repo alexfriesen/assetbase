@@ -4,13 +4,15 @@ import { createContainer } from 'meteor/react-meteor-data';
 
 import List from "../components/Asset/List";
 
+import Authenticated from "../components/Permission/Authenticated";
+
 class DashboardPage extends React.Component {
 
   render() {
     const {query} = this.props.location;
     const {params} = this.props;
 
-    const {currentUser} = this.props;
+    const {currentUser} = this.context;
 
     let userId = null;
     if (currentUser) {
@@ -20,21 +22,25 @@ class DashboardPage extends React.Component {
     return (
       <div>
         <h1>Assets</h1>
-        <a href="/asset/new">New Asset</a>
-        <List userId={ userId } currentUser={ this.props.currentUser } />
+        <Authenticated>
+          <a href="/asset/new">New Asset</a>
+        </Authenticated>
+        <List userId={ userId } />
       </div>
       );
   }
 }
 
-DashboardPage.propTypes = {
-  currentUser: PropTypes.object,
-};
+DashboardPage.contextTypes = {
+  currentUser: React.PropTypes.object,
+}
 
 export default createContainer(() => {
-  Meteor.subscribe('assets');
+  let subscriptionHandler = Meteor.subscribe('assets');
+
+  let loading = !subscriptionHandler.ready();
 
   return {
-    currentUser: Meteor.user(),
+    loading
   };
 }, DashboardPage);
