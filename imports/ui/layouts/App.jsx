@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Children } from 'react';
 import { Meteor } from 'meteor/meteor';
 
 import Footer from "../components/layout/Footer";
@@ -10,7 +10,9 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      locale: null,
       currentUser: null,
+      configuration: null,
       showConnectionIssue: false,
     };
     this.logout = this.logout.bind(this);
@@ -31,14 +33,30 @@ export default class App extends React.Component {
     }, CONNECTION_ISSUE_TIMEOUT);
   }
 
-  componentWillReceiveProps({user}) {
+  componentWillReceiveProps({user, configuration}) {
+    if (configuration !== undefined && configuration !== this.state.configuration) {
+      // upadte current Configuration state with props from AppContainer
+      this.setState({
+        configuration
+      });
+    }
+
     if (user !== undefined && user !== this.state.currentUser) {
+      // FIXME: due to a bug in react's context behaviour, some child elements won't update properly
+
       // upadte current User state with props from AppContainer
       this.setState({
         currentUser: user
       });
     }
   }
+
+  // shouldComponentUpdate(nextProps,nextState, nextcontext) {
+  //   if(nextState.currentUser) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   logout() {
     Meteor.logout();
@@ -50,8 +68,10 @@ export default class App extends React.Component {
   }
 
   render() {
+    window.appcomp = this;
+
     const {showConnectionIssue} = this.state;
-    const {user, connected, children, location} = this.props;
+    const {loading, user, connected, children, location} = this.props;
 
     const containerStyle = {
       marginTop: "60px"
@@ -59,7 +79,7 @@ export default class App extends React.Component {
 
     return (
       <div>
-        <Nav location={location} />
+        <Nav location={location} onLogout={this.logout} />
         <div className="container" style={containerStyle}>
           <div className="row">
             <div className="col-lg-12">
@@ -68,7 +88,7 @@ export default class App extends React.Component {
                    <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> No Connection
                  </div>
                : null}
-              {children}
+              {Children.only(children)}
             </div>
           </div>
           <Footer/>
@@ -77,13 +97,15 @@ export default class App extends React.Component {
       );
   }
 }
+;
 
 App.propTypes = {
   user: React.PropTypes.object,
+  configuration: React.PropTypes.object,
   connected: React.PropTypes.bool,
   loading: React.PropTypes.bool,
-  children: React.PropTypes.element,
   location: React.PropTypes.object,
+  children: React.PropTypes.element,
 };
 
 App.contextTypes = {
@@ -92,4 +114,5 @@ App.contextTypes = {
 
 App.childContextTypes = {
   currentUser: React.PropTypes.object,
-}
+  configuration: React.PropTypes.object,
+};

@@ -13,12 +13,12 @@ const UserAvatar = ({user, size, link}) => {
       size = "medium";
   }
 
-  const img = <img className={ "avatar " + size } alt={ Users.getDisplayName(user) } src={ Users.getAvatarUrl(user) } />;
+  const img = <img className={"avatar " + size} alt={Users.getDisplayName(user)} src={Users.getAvatarUrl(user)} />;
 
   if (link === true) {
     return (
-      <a className={ "user-avatar" + size } href={ Users.getProfileUrl(user) }>
-        { img }
+      <a className={"user-avatar" + size} href={Users.getProfileUrl(user)}>
+        {img}
       </a>
       );
   }

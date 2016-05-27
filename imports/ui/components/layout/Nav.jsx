@@ -1,6 +1,7 @@
 import React from "react";
 import { IndexLink, Link } from "react-router";
 
+import AuthMenu from '../Auth/Menu';
 import AccountsUIWrapper from '../AccountsUIWrapper.jsx';
 
 export default class Nav extends React.Component {
@@ -32,7 +33,7 @@ export default class Nav extends React.Component {
       <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
         <div className="container">
           <div className="navbar-header">
-            <button type="button" className="navbar-toggle" onClick={ this.toggleCollapse.bind(this) }>
+            <button type="button" className="navbar-toggle" onClick={this.toggleCollapse.bind(this)}>
               <span className="sr-only">Toggle navigation</span>
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
@@ -40,30 +41,32 @@ export default class Nav extends React.Component {
             </button>
             <a className="navbar-brand" href="/">Assetbase</a>
           </div>
-          <div className={ "navbar-collapse " + navClass }>
+          <div className={"navbar-collapse " + navClass}>
             <ul className="nav navbar-nav">
-              <li className={ assetsClass }>
-                <IndexLink to="/" onClick={ this.toggleCollapse.bind(this) }>
+              <li className={assetsClass}>
+                <IndexLink to="/" onClick={this.toggleCollapse.bind(this)}>
                   Assets
                 </IndexLink>
               </li>
-              <li className={ categoriesClass }>
-                <Link to="/categories" onClick={ this.toggleCollapse.bind(this) }> Categories
+              <li className={categoriesClass}>
+                <Link to="/categories" onClick={this.toggleCollapse.bind(this)}> Categories
                 </Link>
               </li>
-              <li className={ aboutClass }>
-                <Link to="/about" onClick={ this.toggleCollapse.bind(this) }> About
+              <li className={aboutClass}>
+                <Link to="/about" onClick={this.toggleCollapse.bind(this)}> About
                 </Link>
               </li>
             </ul>
-            <ul className="nav navbar-nav navbar-right">
-              <li>
-                <AccountsUIWrapper />
-              </li>
-            </ul>
+            <AuthMenu logout={this.props.onLogout} />
           </div>
         </div>
       </nav>
       );
   }
 }
+;
+
+Nav.propTypes = {
+  location: React.PropTypes.object,
+  onLogout: React.PropTypes.func,
+};

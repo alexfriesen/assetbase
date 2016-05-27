@@ -9,17 +9,22 @@ import About from "../../ui/pages/About";
 import Asset from "../../ui/pages/Asset";
 import User from "../../ui/pages/User";
 
+import LoginPage from "../../ui/pages/Login";
+import RegisterPage from "../../ui/pages/Register";
+
 import NotFound from "../../ui/pages/NotFound";
 
 export const renderRoutes = () => (
-<Router history={ browserHistory }>
-  <Route path="/" component={ AppContainer }>
-    <IndexRoute component={ Dashboard } />
-    <Route path="/categories(/:id)" component={ Categories } />
-    <Route path="/asset/:id(/:method)" component={ Asset } />
-    <Route path="/user/:id(/:method)" component={ User } />
-    <Route path="/about" component={ About } />
-    <Route path="*" component={ NotFound } />
+<Router history={browserHistory}>
+  <Route path="/" component={AppContainer}>
+    <IndexRoute component={Dashboard} />
+    <Route path="/categories(/:id)" component={Categories} />
+    <Route path="/asset/:id(/:method)" component={Asset} />
+    <Route path="/user/:id(/:method)" component={User} />
+    <Route path="/about" component={About} />
+    <Route path="/login" component={LoginPage} />
+    <Route path="/register" component={RegisterPage} />
+    <Route path="*" component={NotFound} />
   </Route>
 </Router>
 );

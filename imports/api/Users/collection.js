@@ -2,6 +2,14 @@ import { Meteor } from 'meteor/meteor';
 
 export const Users = Meteor.users;
 
+Users.isAdmin = function (user) {
+  try {
+    return !!user && !!user.isAdmin;
+  } catch (e) {
+    return false; // user not logged in
+  }
+};
+
 Users.getUserName = function(user) {
   try {
     if (user.username)
