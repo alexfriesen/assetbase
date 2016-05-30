@@ -2,7 +2,6 @@ import React from "react";
 import { IndexLink, Link } from "react-router";
 
 import AuthMenu from '../Auth/Menu';
-import AccountsUIWrapper from '../AccountsUIWrapper.jsx';
 
 export default class Nav extends React.Component {
   constructor() {
