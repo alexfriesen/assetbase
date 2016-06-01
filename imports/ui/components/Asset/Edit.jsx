@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
 import Dropzone from 'react-dropzone';
 import { Meteor } from 'meteor/meteor';
 
@@ -135,15 +134,15 @@ export default class EditAsset extends Component {
     event.preventDefault();
 
     // Find the text field via the React ref
-    const title = ReactDOM.findDOMNode(this.refs.title).value.trim();
-    const description = ReactDOM.findDOMNode(this.refs.description).value.trim();
+    const title = String(this.refs.title.value).trim();
+    const description = String(this.refs.description.value).trim();
 
-    const published = ReactDOM.findDOMNode(this.refs.published).value === 1;
-    const adult = ReactDOM.findDOMNode(this.refs.adult).value === 1;
-    const commentsAllowed = ReactDOM.findDOMNode(this.refs.commentsAllowed).value === 1;
+    const published = this.refs.published.checked;
+    const adult = this.refs.adult.checked;
+    const commentsAllowed = this.refs.commentsAllowed.checked;
 
-    const tags = ReactDOM.findDOMNode(this.refs.tags).value.trim().split(/[\s,]+/);
-    const categoryId = ReactDOM.findDOMNode(this.refs.categoryId).value.trim();
+    const tags = String(this.refs.tags.value).trim().split(/[\s,]+/);
+    const categoryId = String(this.refs.categoryId.value).trim();
 
     let {files} = this.props.asset || {};
     files = files || [];
@@ -212,16 +211,23 @@ export default class EditAsset extends Component {
 
   render() {
     const {currentUser} = this.context;
-    const {asset} = this.props;
-    const {title, description, published, adult, commentsAllowed, tags, categoryId} = asset || {};
-
-    const {queuedFiles, uploadedFiles} = this.state;
 
     if (!currentUser) {
       return (
         <h3>Not Allowed</h3>
         );
     }
+
+    const {asset} = this.props;
+    const assetPreset = {
+      published: true,
+      adult: false,
+      commentsAllowed: true,
+    };
+
+    const {title, description, published, adult, commentsAllowed, tags, categoryId} = asset || assetPreset;
+
+    const {queuedFiles, uploadedFiles} = this.state;
 
     let {files} = asset || {};
     files = files || [];
@@ -276,21 +282,21 @@ export default class EditAsset extends Component {
             <div className="col-lg-4">
               <div className="checkbox">
                 <label>
-                  <input type="checkbox" defaultValue={published || ""} ref="published" /> published
+                  <input type="checkbox" defaultChecked={published} ref="published" /> published
                 </label>
               </div>
             </div>
             <div className="col-lg-4">
               <div className="checkbox">
                 <label>
-                  <input type="checkbox" defaultValue={adult || ""} ref="adult" /> adult
+                  <input type="checkbox" defaultChecked={adult} ref="adult" /> adult
                 </label>
               </div>
             </div>
             <div className="col-lg-4">
               <div className="checkbox">
                 <label>
-                  <input type="checkbox" defaultValue={commentsAllowed || ""} ref="commentsAllowed" /> commentsAllowed
+                  <input type="checkbox" defaultChecked={commentsAllowed} ref="commentsAllowed" /> commentsAllowed
                 </label>
               </div>
             </div>
