@@ -29,7 +29,7 @@ export default class AssetDetail extends Component {
     const {asset} = this.props;
 
     let editLink;
-    if (currentUser._id === asset.userId) {
+    if (currentUser && currentUser._id === asset.userId) {
       editLink = <a href={'/asset/' + asset._id + '/edit'}>Edit</a>;
     }
 

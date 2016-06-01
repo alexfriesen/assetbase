@@ -21,6 +21,11 @@ export default class CommentForm extends Component {
 
   render() {
     const {currentUser} = this.context;
+
+    if(!currentUser) {
+      return null;
+    }
+    
     const {data} = this.props;
     const {large} = this.props;
     const {smallInput} = this.props;
