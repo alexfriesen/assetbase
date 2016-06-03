@@ -3,11 +3,11 @@ import { Route } from 'react-router';
 
 // route components
 import AppContainer from './containers/AppContainer';
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./containers/DashboardContainer";
+import Asset from "./containers/AssetContainer";
+import User from "./containers/UserContainer";
 import Categories from "./pages/Categories";
 import About from "./pages/About";
-import Asset from "./containers/AssetContainer";
-import User from "./pages/User";
 
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
