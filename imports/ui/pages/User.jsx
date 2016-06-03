@@ -50,6 +50,7 @@ export default class UserPage extends React.Component {
     return (
       <div>
         <Profile user={user} />
+        <hr />
         <h3>Assets</h3>
         <AssetList assets={assets} />
       </div>
