@@ -1,13 +1,9 @@
 import React, { PropTypes } from "react";
-import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
-
-import { Assets as AssetsCollection } from '../../api/Assets/collection';
 
 import List from "../components/Asset/List";
 import Authenticated from "../components/Permission/Authenticated";
 
-class DashboardPage extends React.Component {
+export default class DashboardPage extends React.Component {
 
   render() {
     const {query} = this.props.location;
@@ -19,7 +15,6 @@ class DashboardPage extends React.Component {
     if (currentUser) {
       userId = currentUser._id;
     }
-    console.log(assets);
 
     return (
       <div>
@@ -36,16 +31,3 @@ class DashboardPage extends React.Component {
 DashboardPage.contextTypes = {
   currentUser: React.PropTypes.object,
 }
-
-export default createContainer(() => {
-  let subscriptionHandler = Meteor.subscribe('assets');
-
-  let loading = !subscriptionHandler.ready();
-
-  let assets = AssetsCollection.find().fetch();
-
-  return {
-    loading,
-    assets
-  };
-}, DashboardPage);
