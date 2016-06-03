@@ -54,4 +54,4 @@ Menu.propTypes = {
 
 Menu.contextTypes = {
   currentUser: React.PropTypes.object,
-}
+};
