@@ -4,16 +4,16 @@ import { Meteor } from 'meteor/meteor';
 export default class AssetItem extends Component {
 
   deleteThisFestival() {
-    Meteor.call('assets.remove', this.props.data._id);
+    Meteor.call('assets.remove', this.props.asset._id);
   }
 
   togglePrivate() {
-    Meteor.call('assets.setPublic', this.props.data._id, !this.props.data.private);
+    Meteor.call('assets.setPublic', this.props.asset._id, !this.props.asset.private);
   }
 
   render() {
-    const {title} = this.props.data;
-    const id = this.props.data._id;
+    const {title} = this.props.asset;
+    const id = this.props.asset._id;
     return (
       <div className="col-md-4">
         <h4>{ title }</h4>
@@ -24,6 +24,6 @@ export default class AssetItem extends Component {
 }
 
 AssetItem.propTypes = {
-  data: PropTypes.object.isRequired,
+  asset: PropTypes.object.isRequired,
   showPrivateButton: React.PropTypes.bool.isRequired,
 };

@@ -6,6 +6,9 @@ import AssetFile from './File';
 import CommentForm from '../Comment/Form';
 import CommentList from '../Comment/List';
 
+import UserName from '../Users/Name';
+import UserAvatar from '../Users/Avatar';
+
 export default class AssetDetail extends Component {
 
   renderFiles(data) {
@@ -26,7 +29,7 @@ export default class AssetDetail extends Component {
 
   render() {
     const {currentUser} = this.context;
-    const {asset} = this.props;
+    const {asset, user} = this.props;
 
     let editLink;
     if (currentUser && currentUser._id === asset.userId) {
@@ -41,10 +44,18 @@ export default class AssetDetail extends Component {
           </div>
         </div>
         <div className="col-lg-4">
+          <div>
+            <UserAvatar user={user} size="large" /> &nbsp;
+            <UserName user={user} />
+          </div>
           <h1>Asset: {asset.title}</h1>
           {editLink}
-          <CommentForm assetId={asset._id} large={true} />
-          <CommentList assetId={asset._id} />
+          {asset.commentsAllowed
+           ? <div>
+               <CommentForm assetId={asset._id} large={true} />
+               <CommentList assetId={asset._id} />
+             </div>
+           : null}
         </div>
       </div>
       );
@@ -53,6 +64,7 @@ export default class AssetDetail extends Component {
 
 AssetDetail.propTypes = {
   asset: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 AssetDetail.contextTypes = {

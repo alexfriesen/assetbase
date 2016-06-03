@@ -48,7 +48,7 @@ class CommentItem extends Component {
     // }
 
     let closeButton = "";
-    if (comment.userId === currentUser._id) {
+    if (currentUser && currentUser._id === comment.userId) {
       closeButton = <button type="button" className="close" onClick={remove}>
                       &times;
                     </button>;

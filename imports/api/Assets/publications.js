@@ -22,11 +22,18 @@ Meteor.publish('assets', function assetsPublication(userId) {
 Meteor.publish('asset', function assetsPublication(assetId) {
   check(assetId, String);
 
+  const assetData = Assets.findOne(assetId);
+
   const asset = Assets.find({
     _id: assetId
   });
+
   const comments = Comments.find({
     assetId
+  });
+
+  const user = Users.find({
+    _id: assetData.userId
   });
 
   let userSelector = [];
@@ -44,5 +51,5 @@ Meteor.publish('asset', function assetsPublication(assetId) {
   }
 
   // return [asset, comments, users];
-  return [asset, comments];
+  return [asset, user, comments];
 });

@@ -4,6 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer, ReactMeteorData } from 'meteor/react-meteor-data';
 
 import { Users as UsersCollection } from '../../api/Users/collection';
+import { Assets as AssetsCollection } from '../../api/Assets/collection';
 
 import Profile from "../components/Users/Profile";
 import UserEdit from "../components/Users/Edit";
@@ -12,7 +13,7 @@ import AssetList from "../components/Asset/List";
 class UserPage extends React.Component {
 
   render() {
-    const {loading, dataExists} = this.props;
+    const {loading, userExists} = this.props;
 
     if (loading) {
       return (
@@ -20,17 +21,17 @@ class UserPage extends React.Component {
         );
     }
 
-    if (!dataExists) {
+    if (!userExists) {
       return (
         <h1>404</h1>
         );
     }
 
     const {currentUser} = this.context;
-    const {data} = this.props;
-    const {profile} = data;
+    const {user, assets} = this.props;
+    const {profile} = user;
 
-    const isCurrentUser = currentUser && currentUser._id === data._id;
+    const isCurrentUser = currentUser && currentUser._id === user._id;
 
     if (!isCurrentUser && (profile && !profile.public)) {
       return (
@@ -47,15 +48,15 @@ class UserPage extends React.Component {
 
     if (this.props.params.method === 'edit' && isCurrentUser) {
       return (
-        <UserEdit user={data} />
+        <UserEdit user={user} />
         );
     }
 
     return (
       <div>
-        <Profile user={data} />
+        <Profile user={user} />
         <h3>Assets</h3>
-        <AssetList userId={data._id} />
+        <AssetList assets={assets} />
       </div>
       );
   }
@@ -63,8 +64,9 @@ class UserPage extends React.Component {
 
 UserPage.propTypes = {
   loading: React.PropTypes.bool,
-  dataExists: React.PropTypes.bool,
-  data: React.PropTypes.object,
+  userExists: React.PropTypes.bool,
+  user: React.PropTypes.object,
+  assets: React.PropTypes.object,
 };
 
 UserPage.contextTypes = {
@@ -76,14 +78,16 @@ export default createContainer((props) => {
   let {id} = props.params;
 
   let subscriptionHandler = Meteor.subscribe('user', id);
-  const data = UsersCollection.findOne(id);
+  const user = UsersCollection.findOne(id);
+  const assets = AssetsCollection.find({userId: id});
 
   let loading = !subscriptionHandler.ready();
-  let dataExists = !loading && !!data;
+  let userExists = !loading && !!user;
 
   return {
     loading,
-    dataExists,
-    data,
+    userExists,
+    user,
+    assets
   };
 }, UserPage);

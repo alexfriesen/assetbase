@@ -1,12 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
-
-import { Assets as AssetsCollection } from '../../../api/Assets/collection';
 
 import AssetItem from "./Item";
 
-class AssetList extends Component {
+export default class AssetList extends Component {
 
   handleRemove(id) {
     Meteor.call('assets.remove', id);
@@ -17,7 +14,7 @@ class AssetList extends Component {
       const currentUserId = this.context.currentUser && this.context.currentUser._id;
       const showPrivateButton = asset.userId === currentUserId;
       return (
-        <AssetItem key={ asset._id } data={ asset } showPrivateButton={ showPrivateButton } />
+        <AssetItem key={ asset._id } asset={ asset } showPrivateButton={ showPrivateButton } />
         );
     });
   }
@@ -31,11 +28,11 @@ class AssetList extends Component {
         );
     }
 
-    const {data} = this.props;
+    const {assets} = this.props;
     
     return (
       <div className="row">
-        { this.renderAssets(data) }
+        { this.renderAssets(assets) }
       </div>
       );
   }
@@ -43,32 +40,10 @@ class AssetList extends Component {
 
 AssetList.propTypes = {
   loading: React.PropTypes.bool,
-  data: PropTypes.array,
+  assets: PropTypes.array,
 };
 
 AssetList.contextTypes = {
   currentUser: React.PropTypes.object,
 };
 
-export default createContainer((props) => {
-  let {userId} = props;
-
-  if (!userId) {
-    return {
-      loading: false,
-      data: [],
-    };
-  }
-
-  let subscriptionHandler = Meteor.subscribe('assets', userId);
-  let loading = !subscriptionHandler.ready();
-
-  let data = AssetsCollection.find({
-    userId
-  }).fetch();
-
-  return {
-    loading,
-    data,
-  };
-}, AssetList);

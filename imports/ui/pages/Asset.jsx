@@ -5,15 +5,12 @@ import { Meteor } from 'meteor/meteor';
 import { createContainer, ReactMeteorData } from 'meteor/react-meteor-data';
 
 import { Assets as AssetsCollection } from '../../api/Assets/collection';
+import { Users as UsersCollection } from '../../api/Users/collection';
 
 import AssetEdit from '../components/Asset/Edit';
 import AssetDetail from '../components/Asset/Detail';
 
 class AssetPage extends React.Component {
-  // -- static childContextTypes comes with ECMA7 
-  // static childContextTypes = {
-  //   currentUser: React.PropTypes.object
-  // };
 
   handleRemove() {
     const {data} = this.props;
@@ -21,7 +18,6 @@ class AssetPage extends React.Component {
   }
 
   handleEdit() {
-    console.log(this.props.history);
     this.props.params.method = 'edit';
     //this.props.history.push('/some/path');
   }
@@ -29,8 +25,6 @@ class AssetPage extends React.Component {
   render() {
     const {loading, dataExists} = this.props;
     const {currentUser} = this.context;
-
-    console.log(currentUser);
 
     if (loading) {
       return (
@@ -50,9 +44,9 @@ class AssetPage extends React.Component {
         );
     }
 
-    const {data} = this.props;
+    const {asset, user} = this.props;
 
-    if (!data.published && !(currentUser && currentUser._id === data.userId)) {
+    if (!asset.published && !(currentUser && currentUser._id === asset.userId)) {
       return (
         <div className="row">
           <div className="col-lg-12">
@@ -67,12 +61,12 @@ class AssetPage extends React.Component {
 
     if (this.props.params.method === 'edit') {
       return (
-        <AssetEdit asset={ data } />
+        <AssetEdit asset={asset} />
         );
     }
 
     return (
-      <AssetDetail asset={ data } />
+      <AssetDetail asset={asset} user={user} />
       );
   }
 }
@@ -80,7 +74,8 @@ class AssetPage extends React.Component {
 AssetPage.propTypes = {
   loading: React.PropTypes.bool,
   dataExists: React.PropTypes.bool,
-  data: PropTypes.object,
+  asset: PropTypes.object,
+  user: PropTypes.object,
 };
 
 AssetPage.contextTypes = {
@@ -91,14 +86,19 @@ export default createContainer((props) => {
   let {id} = props.params;
 
   let dataHandle = Meteor.subscribe('asset', id);
-  const data = AssetsCollection.findOne(id);
+  const asset = AssetsCollection.findOne(id);
+  let user = null;
+  if (asset && asset.userId) {
+    user = UsersCollection.findOne(asset.userId);
+  }
 
   let loading = !dataHandle.ready();
-  let dataExists = !loading && !!data;
+  let dataExists = !loading && !!asset && !!user;
 
   return {
     loading,
     dataExists,
-    data,
+    asset,
+    user
   };
 }, AssetPage);
