@@ -1,16 +1,11 @@
 import React from "react";
 import ReactDOM from 'react-dom';
-import { Meteor } from 'meteor/meteor';
-import { createContainer, ReactMeteorData } from 'meteor/react-meteor-data';
-
-import { Users as UsersCollection } from '../../api/Users/collection';
-import { Assets as AssetsCollection } from '../../api/Assets/collection';
 
 import Profile from "../components/Users/Profile";
 import UserEdit from "../components/Users/Edit";
 import AssetList from "../components/Asset/List";
 
-class UserPage extends React.Component {
+export default class UserPage extends React.Component {
 
   render() {
     const {loading, userExists} = this.props;
@@ -66,28 +61,10 @@ UserPage.propTypes = {
   loading: React.PropTypes.bool,
   userExists: React.PropTypes.bool,
   user: React.PropTypes.object,
-  assets: React.PropTypes.object,
+  assets: React.PropTypes.array,
 };
 
 UserPage.contextTypes = {
   currentUser: React.PropTypes.object,
 }
 
-export default createContainer((props) => {
-  let {query} = props.location;
-  let {id} = props.params;
-
-  let subscriptionHandler = Meteor.subscribe('user', id);
-  const user = UsersCollection.findOne(id);
-  const assets = AssetsCollection.find({userId: id});
-
-  let loading = !subscriptionHandler.ready();
-  let userExists = !loading && !!user;
-
-  return {
-    loading,
-    userExists,
-    user,
-    assets
-  };
-}, UserPage);
