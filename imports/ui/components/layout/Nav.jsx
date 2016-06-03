@@ -43,9 +43,9 @@ export default class Nav extends React.Component {
           <div className={"navbar-collapse " + navClass}>
             <ul className="nav navbar-nav">
               <li className={assetsClass}>
-                <IndexLink to="/" onClick={this.toggleCollapse.bind(this)}>
+                <Link to="/" onClick={this.toggleCollapse.bind(this)}>
                   Assets
-                </IndexLink>
+                </Link>
               </li>
               <li className={categoriesClass}>
                 <Link to="/categories" onClick={this.toggleCollapse.bind(this)}> Categories
@@ -63,7 +63,6 @@ export default class Nav extends React.Component {
       );
   }
 }
-;
 
 Nav.propTypes = {
   location: React.PropTypes.object,
