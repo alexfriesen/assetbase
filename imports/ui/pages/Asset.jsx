@@ -10,7 +10,7 @@ import { Users as UsersCollection } from '../../api/Users/collection';
 import AssetEdit from '../components/Asset/Edit';
 import AssetDetail from '../components/Asset/Detail';
 
-class AssetPage extends React.Component {
+export default class AssetPage extends React.Component {
 
   handleRemove() {
     const {data} = this.props;
@@ -81,24 +81,3 @@ AssetPage.propTypes = {
 AssetPage.contextTypes = {
   currentUser: React.PropTypes.object,
 }
-
-export default createContainer((props) => {
-  let {id} = props.params;
-
-  let dataHandle = Meteor.subscribe('asset', id);
-  const asset = AssetsCollection.findOne(id);
-  let user = null;
-  if (asset && asset.userId) {
-    user = UsersCollection.findOne(asset.userId);
-  }
-
-  let loading = !dataHandle.ready();
-  let dataExists = !loading && !!asset && !!user;
-
-  return {
-    loading,
-    dataExists,
-    asset,
-    user
-  };
-}, AssetPage);
