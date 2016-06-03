@@ -50,5 +50,5 @@ Users.getProfileUrl = function(user, isAbsolute) {
 };
 
 Users.getAvatarUrl = function(user) {
-  return "http://lorempixel.com/50/50/?t=" + user._id;
+  return "http://lorempixel.com/100/100/?t=" + user._id;
 };

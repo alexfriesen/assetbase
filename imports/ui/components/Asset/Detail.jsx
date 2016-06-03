@@ -45,7 +45,7 @@ export default class AssetDetail extends Component {
         </div>
         <div className="col-lg-4">
           <div>
-            <UserAvatar user={user} size="large" /> &nbsp;
+            <UserAvatar user={user} size="medium" /> &nbsp;
             <UserName user={user} />
           </div>
           <h1>Asset: {asset.title}</h1>
