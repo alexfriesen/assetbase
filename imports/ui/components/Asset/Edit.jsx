@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import Dropzone from 'react-dropzone';
 import { Meteor } from 'meteor/meteor';
 
@@ -6,7 +6,7 @@ import { Slingshot } from 'meteor/edgee:slingshot';
 
 import AssetFile from './File';
 
-export default class EditAsset extends Component {
+export default class EditAsset extends React.Component {
 
   constructor(props, context) {
     super(props, context);
@@ -148,6 +148,7 @@ export default class EditAsset extends Component {
     files = files || [];
     files = files.concat(this.state.uploadedFiles);
 
+    //TODO: move all this mess to reducers
     if (this.props.asset && this.props.asset._id) {
 
       Meteor.call('assets.edit',
@@ -329,7 +330,7 @@ export default class EditAsset extends Component {
 }
 
 EditAsset.propTypes = {
-  asset: PropTypes.object,
+  asset: React.PropTypes.object,
 };
 
 EditAsset.contextTypes = {

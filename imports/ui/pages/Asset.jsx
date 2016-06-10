@@ -1,11 +1,5 @@
-import React, { PropTypes } from "react";
-import ReactDOM from 'react-dom';
-import { browserHistory } from 'react-router'
+import React from "react";
 import { Meteor } from 'meteor/meteor';
-import { createContainer, ReactMeteorData } from 'meteor/react-meteor-data';
-
-import { Assets as AssetsCollection } from '../../api/Assets/collection';
-import { Users as UsersCollection } from '../../api/Users/collection';
 
 import AssetEdit from '../components/Asset/Edit';
 import AssetDetail from '../components/Asset/Detail';
@@ -74,8 +68,8 @@ export default class AssetPage extends React.Component {
 AssetPage.propTypes = {
   loading: React.PropTypes.bool,
   dataExists: React.PropTypes.bool,
-  asset: PropTypes.object,
-  user: PropTypes.object,
+  asset: React.PropTypes.object,
+  user: React.PropTypes.object,
 };
 
 AssetPage.contextTypes = {

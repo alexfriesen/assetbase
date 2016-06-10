@@ -1,12 +1,8 @@
-import React, { Component, PropTypes } from 'react';
-import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
-
-import { Comments as CommentsCollection } from '../../../api/Comments/collection';
+import React from 'react';
 
 import CommentItem from './Item';
 
-class CommentList extends Component {
+class CommentList extends React.Component {
   renderComments(data) {
     let filteredData = data;
 
@@ -48,23 +44,7 @@ class CommentList extends Component {
 
 CommentList.propTypes = {
   loading: React.PropTypes.bool,
-  data: PropTypes.array,
+  data: React.PropTypes.array,
 };
 
-export default createContainer((props) => {
-  let {assetId} = props;
-  let subscriptionHandler = Meteor.subscribe('assetComments', assetId);
-  let loading = !subscriptionHandler.ready();
-  let data = CommentsCollection.find({
-    assetId: assetId
-  }, {
-    sort: {
-      createdAt: -1
-    }
-  }).fetch();
-
-  return {
-    loading,
-    data,
-  };
-}, CommentList);
+export default CommentList;

@@ -1,9 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { Meteor } from 'meteor/meteor';
-// import classnames from 'classnames';
 
-// Task component - represents a single todo item
-export default class Category extends Component {
+export default class Category extends React.Component {
 
   render() {
     const {title} = this.props;
@@ -17,5 +15,5 @@ export default class Category extends Component {
 }
 
 Category.propTypes = {
-  category: PropTypes.object.isRequired,
+  category: React.PropTypes.object.isRequired,
 };

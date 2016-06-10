@@ -1,15 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { Meteor } from 'meteor/meteor';
 
-export default class AssetItem extends Component {
-
-  deleteThisFestival() {
-    Meteor.call('assets.remove', this.props.asset._id);
-  }
-
-  togglePrivate() {
-    Meteor.call('assets.setPublic', this.props.asset._id, !this.props.asset.private);
-  }
+export default class AssetItem extends React.Component {
 
   render() {
     const {title} = this.props.asset;
@@ -24,6 +16,6 @@ export default class AssetItem extends Component {
 }
 
 AssetItem.propTypes = {
-  asset: PropTypes.object.isRequired,
+  asset: React.PropTypes.object.isRequired,
   showPrivateButton: React.PropTypes.bool.isRequired,
 };

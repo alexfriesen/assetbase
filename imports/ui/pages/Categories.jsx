@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { Meteor } from 'meteor/meteor';
 
 import { createContainer } from 'meteor/react-meteor-data';
@@ -43,9 +43,9 @@ class CategoriesPage extends React.Component {
 }
 
 CategoriesPage.propTypes = {
-  categories: PropTypes.array.isRequired,
-  incompleteCount: PropTypes.number.isRequired,
-  currentUser: PropTypes.object,
+  categories: React.PropTypes.array.isRequired,
+  incompleteCount: React.PropTypes.number.isRequired,
+  currentUser: React.PropTypes.object,
 };
 
 export default createContainer(() => {

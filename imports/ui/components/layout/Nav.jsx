@@ -1,5 +1,5 @@
 import React from "react";
-import { IndexLink, Link } from "react-router";
+import { Link } from "react-router";
 
 import AuthMenu from '../Auth/Menu';
 
@@ -23,7 +23,6 @@ export default class Nav extends React.Component {
     const {collapsed} = this.state;
 
     const assetsClass = (location.pathname === "/" || location.pathname.match(/^\/asset/)) ? "active" : "";
-    const categoriesClass = location.pathname.match(/^\/categories/) ? "active" : "";
     const aboutClass = location.pathname.match(/^\/about/) ? "active" : "";
 
     const navClass = collapsed ? "collapse" : "";
@@ -45,10 +44,6 @@ export default class Nav extends React.Component {
               <li className={assetsClass}>
                 <Link to="/" onClick={this.toggleCollapse.bind(this)}>
                   Assets
-                </Link>
-              </li>
-              <li className={categoriesClass}>
-                <Link to="/categories" onClick={this.toggleCollapse.bind(this)}> Categories
                 </Link>
               </li>
               <li className={aboutClass}>

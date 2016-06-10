@@ -68,8 +68,6 @@ export default class App extends React.Component {
   }
 
   render() {
-    window.appcomp = this;
-
     const {showConnectionIssue} = this.state;
     const {loading, user, connected, children, location} = this.props;
 

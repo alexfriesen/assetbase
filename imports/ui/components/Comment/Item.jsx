@@ -1,51 +1,24 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { Link } from 'react-router'
 import { Meteor } from 'meteor/meteor';
-import { createContainer } from 'meteor/react-meteor-data';
 
-import { Comments as CommentsCollection } from '../../../api/Comments/collection';
 import { Users } from '../../../api/Users/collection';
-
-import CommentForm from './Form';
 
 import UserName from '../Users/Name';
 import UserAvatar from '../Users/Avatar';
 
-class CommentItem extends Component {
+class CommentItem extends React.Component {
 
   handleRemove(id) {
+    // TODO: move to reducers
     Meteor.call('comments.remove', id);
   }
 
-  // renderChildren(data) {
-  //   if (!data) {
-  //     return;
-  //   }
-  //   const {userRole} = this.props;
-
-  //   const filteredData = data;
-  //   // if (this.state.hideStatus) {
-  //   //   filteredData = filteredData.filter(data => !data.checked);
-  //   // }
-  //   return filteredData.map((comment) => {
-  //     return (
-  //       <Comment key={ comment._id } comment={ comment } />
-  //       );
-  //   });
-  // }
-
   render() {
     const {comment} = this.props;
-    const {loading} = this.props;
-    // const {children} = this.props;
     const {currentUser} = this.context;
 
     var remove = this.handleRemove.bind(this, comment._id);
-
-    // let replyForm = "";
-    // if(!comment.parentId) {
-    //   replyForm = <CommentForm assetId={comment.assetId} parentId={comment._id} smallInput={true} currentUser={this.props.currentUser} />;
-    // }
 
     let closeButton = "";
     if (currentUser && currentUser._id === comment.userId) {
@@ -71,26 +44,11 @@ class CommentItem extends Component {
 }
 
 CommentItem.propTypes = {
-  loading: React.PropTypes.bool,
-  comment: PropTypes.object.isRequired,
-// children: PropTypes.array,
+  comment: React.PropTypes.object.isRequired,
 };
 
 CommentItem.contextTypes = {
   currentUser: React.PropTypes.object,
 }
 
-export default createContainer((props) => {
-  let {comment} = props;
-  let subscriptionHandler = Meteor.subscribe('comments', comment._id);
-  let loading = !subscriptionHandler.ready();
-  // let children = CommentsCollection.find({
-  //   parentId: comment._id
-  // }).fetch();
-
-  return {
-    loading,
-    comment,
-    // children,
-  };
-}, CommentItem);
+export default CommentItem;

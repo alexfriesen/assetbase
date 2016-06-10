@@ -1,19 +1,19 @@
-import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import { Meteor } from 'meteor/meteor';
 
 import UserName from './Name';
 import UserAvatar from './Avatar';
 
-export default class EditUser extends Component {
+export default class EditUser extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
 
     // Find the text field via the React ref
-    const displayName = ReactDOM.findDOMNode(this.refs.displayName).value.trim();
-    const summary = ReactDOM.findDOMNode(this.refs.summary).value.trim();
+    const displayName = String(this.refs.displayName.value).trim();
+    const summary = String(this.refs.summary.value).trim();
 
+    // TODO: move to reducers
     Meteor.call('users.edit', this.props.user._id, {
       $set: {
         profile: {
@@ -63,7 +63,7 @@ export default class EditUser extends Component {
 }
 
 EditUser.propTypes = {
-  user: PropTypes.object,
+  user: React.PropTypes.object,
 };
 
 EditUser.contextTypes = {

@@ -1,7 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { Meteor } from 'meteor/meteor';
 
-export default class AssetFile extends Component {
+export default class AssetFile extends React.Component {
 
   render() {
     const {path, filename} = this.props.file;
@@ -15,6 +15,6 @@ export default class AssetFile extends Component {
 }
 
 AssetFile.propTypes = {
-  asset: PropTypes.object.isRequired,
-  file: PropTypes.object.isRequired,
+  asset: React.PropTypes.object.isRequired,
+  file: React.PropTypes.object.isRequired,
 };

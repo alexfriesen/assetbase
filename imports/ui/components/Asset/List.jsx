@@ -1,13 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { Meteor } from 'meteor/meteor';
 
 import AssetItem from "./Item";
 
-export default class AssetList extends Component {
-
-  handleRemove(id) {
-    Meteor.call('assets.remove', id);
-  }
+export default class AssetList extends React.Component {
 
   renderAssets(assets) {
     return assets.map((asset) => {
@@ -40,7 +36,7 @@ export default class AssetList extends Component {
 
 AssetList.propTypes = {
   loading: React.PropTypes.bool,
-  assets: PropTypes.array,
+  assets: React.PropTypes.array,
 };
 
 AssetList.contextTypes = {

@@ -1,22 +1,22 @@
-import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
 import { Meteor } from 'meteor/meteor';
 
 import UserAvatar from '../Users/Avatar';
 
-export default class CommentForm extends Component {
+export default class CommentForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
 
     const {assetId} = this.props;
 
     // Find the text field via the React ref
-    const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
+    const text = String(this.refs.textInput.value).trim();
 
+    // TODO: move to reducers
     Meteor.call('comments.insert', assetId, text);
 
     // Clear form
-    ReactDOM.findDOMNode(this.refs.textInput).value = '';
+    this.refs.textInput.value = '';
   }
 
   render() {

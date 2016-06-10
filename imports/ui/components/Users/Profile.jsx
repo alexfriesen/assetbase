@@ -1,11 +1,11 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { Link } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 
 import UserName from './Name';
 import UserAvatar from './Avatar';
 
-export default class UserProfile extends Component {
+export default class UserProfile extends React.Component {
 
   render() {
     const {currentUser} = this.context;

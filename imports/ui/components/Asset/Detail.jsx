@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { Meteor } from 'meteor/meteor';
 
 import AssetFile from './File';
@@ -6,10 +6,12 @@ import AssetFile from './File';
 import CommentForm from '../Comment/Form';
 import CommentList from '../Comment/List';
 
+import CommentContainer from '../../containers/CommentContainer';
+
 import UserName from '../Users/Name';
 import UserAvatar from '../Users/Avatar';
 
-export default class AssetDetail extends Component {
+export default class AssetDetail extends React.Component {
 
   renderFiles(data) {
     if (!data) {
@@ -36,6 +38,9 @@ export default class AssetDetail extends Component {
       editLink = <a href={'/asset/' + asset._id + '/edit'}>Edit</a>;
     }
 
+    // TODO: the assetcontainer should load the comments and pass them to the commentlist
+    // instead of using the commentcontainer :-/
+
     return (
       <div className="row">
         <div className="col-lg-8">
@@ -53,7 +58,7 @@ export default class AssetDetail extends Component {
           {asset.commentsAllowed
            ? <div>
                <CommentForm assetId={asset._id} large={true} />
-               <CommentList assetId={asset._id} />
+               <CommentContainer assetId={asset._id} />
              </div>
            : null}
         </div>
@@ -63,8 +68,8 @@ export default class AssetDetail extends Component {
 }
 
 AssetDetail.propTypes = {
-  asset: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
+  asset: React.PropTypes.object.isRequired,
+  user: React.PropTypes.object.isRequired,
 };
 
 AssetDetail.contextTypes = {
